@@ -71,3 +71,16 @@ Chrome / Safari / Firefox / Edge — 2023 and newer.
 - Add Sentry-like opt-in error reporter
 - Publish a small design-token JSON for reuse in other projects
 - Port orbit simulation to WebGL (GPU) if particle count needs to scale
+
+## v1.0.1 — 2026-04-18 (hotfix)
+
+**Bug**: Dream section ("when you are older, we'll ride into any century") rendered as empty blackness mid-scroll — title and background invisible.
+
+**Root cause**: `overflow-x: hidden` on `body` silently broke `position: sticky` on `.dream-sticky` in Chromium (known engine quirk — overflow creates an unexpected containing block that prevents sticky from engaging). The scrub animations were running correctly (verified via opacity trace at 40/55/70% scroll), but the pinned content had scrolled off-screen because nothing was actually pinning it.
+
+**Fix**:
+1. `overflow-x: hidden` → `overflow-x: clip` on html/body (same visual clipping, no scroll-container side-effect).
+2. Swapped CSS `position: sticky` on `.dream-sticky` for GSAP ScrollTrigger `pin: '.dream-sticky'` with `pinSpacing: true, anticipatePin: 1`. Robust across Chromium / WebKit / Firefox.
+3. `.dream` section shortened from `min-height: 200vh` to `100vh` since GSAP now handles the pin-spacing math.
+
+**Verified**: Opacity trace at 0/30/60/90/110% of scrub range — bg filter animates brightness/blur, 12 title words fade in with 0.035s stagger, body fades in at t≈0.55, sticky holds at viewport top 0→900 throughout. Screenshot at 90% confirms full triceratops image with overlaid text.

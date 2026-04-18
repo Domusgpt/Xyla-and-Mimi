@@ -54,7 +54,7 @@
       color: var(--ink);
       font-family: var(--font-body);
       font-weight: 300;
-      overflow-x: hidden;
+      overflow-x: clip;    /* `clip` instead of `hidden` — keeps position: sticky working */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
@@ -538,11 +538,11 @@
        ========================================================== */
     .dream {
       padding: 0;
-      min-height: 200vh;
+      min-height: 100vh;
       position: relative;
     }
     .dream-sticky {
-      position: sticky;
+      position: relative;
       top: 0;
       height: 100vh;
       width: 100%;
@@ -1458,7 +1458,7 @@
       });
     });
 
-    // DREAM — scrub-tied reveal
+    // DREAM — ScrollTrigger-pinned (more reliable than CSS sticky across browsers)
     {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -1466,20 +1466,22 @@
           start: 'top top',
           end: '+=150%',
           scrub: 0.6,
-          pin: false,
+          pin: '.dream-sticky',
+          pinSpacing: true,
+          anticipatePin: 1,
         }
       });
       tl.fromTo('.dream-bg', { scale: 1.35, filter: 'brightness(0.25) blur(16px)' },
-                            { scale: 1.05, filter: 'brightness(0.65) blur(0px)', duration: 1 }, 0);
-      tl.fromTo('.dream-grad', { opacity: 1 }, { opacity: 0.75, duration: 1 }, 0);
-      tl.fromTo('.dream-kicker', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 }, 0.05);
+                            { scale: 1.05, filter: 'brightness(0.7) blur(0px)', duration: 1 }, 0);
+      tl.fromTo('.dream-grad', { opacity: 1 }, { opacity: 0.65, duration: 1 }, 0);
+      tl.fromTo('.dream-kicker', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25 }, 0.05);
       tl.fromTo('.dream-title .word',
         { y: 50, opacity: 0, filter: 'blur(10px)' },
-        { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.04, duration: 0.3, ease: 'power3.out' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.035, duration: 0.28, ease: 'power3.out' },
         0.1
       );
-      tl.fromTo('.dream-body', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0.5);
-      tl.to('.dream-bg', { scale: 1.2, duration: 0.5 }, 0.6);
+      tl.fromTo('.dream-body', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0.55);
+      tl.to('.dream-bg', { scale: 1.2, duration: 0.4 }, 0.7);
     }
 
     // NUMBERS — count up on reveal
