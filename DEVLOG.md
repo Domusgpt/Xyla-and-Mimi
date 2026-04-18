@@ -84,3 +84,19 @@ Chrome / Safari / Firefox / Edge — 2023 and newer.
 3. `.dream` section shortened from `min-height: 200vh` to `100vh` since GSAP now handles the pin-spacing math.
 
 **Verified**: Opacity trace at 0/30/60/90/110% of scrub range — bg filter animates brightness/blur, 12 title words fade in with 0.035s stagger, body fades in at t≈0.55, sticky holds at viewport top 0→900 throughout. Screenshot at 90% confirms full triceratops image with overlaid text.
+
+## v1.0.2 — 2026-04-18 (content re-frame)
+
+**Context change**: Family doesn't share a single home day-to-day. Reframed all copy that assumed cohabitation/daily domestic presence toward "love-across-distance" without losing emotional weight.
+
+**Edits:**
+- Xyla intro: "find your face again each morning" → "keep your face close, even on the days I don't get to see it"
+- Polaroid caption: "those eyes, every day" → "those eyes I know by heart"
+- Mimi note iv: "ordinary Tuesday worth framing" → "small wonders you keep, and send, and save — the ones I carry with me until the next time I see you"
+- Stat: "small rescues per year / knee scrapes · nightmares · lost toys" → "ways I'd come running / a scraped knee · a bad dream · any reason at all" (readiness framing, not daily-proximity framing)
+- Stat: "heartbeats in this house / forever synchronized" → "hearts pulling toward each other / across any distance · always"
+- Orbit intro: Leaned into "Distance doesn't weaken gravity" — the three-body metaphor now carries conceptual weight for the family configuration
+- Vow line 1: "If love is a place — this is where we live" → "If love is a place — it's the one I carry, not the one with a door"
+- Signature sub: "written under a small lamp · long after you both fell asleep" → "written under a small lamp · wherever I am · thinking of you both"
+
+**Verified**: grep'd for remaining cohabitation-implying phrases (`each morning`, `in this house`, `ordinary Tuesday`, `fell asleep`, `where we live`, `rescues per year`) — all clean. Rendered mimi/numbers/finale sections in headless Chromium, 0 JS errors.
